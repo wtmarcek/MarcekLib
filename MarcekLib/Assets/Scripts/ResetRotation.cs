@@ -22,7 +22,7 @@ public class ResetRotation : MonoBehaviour {
         }
     }
 
-    IEnumerator LerpResetRotation(float speed)
+    public IEnumerator LerpResetRotation(float speed)
     {
         while (Mathf.Abs(Vector3.SqrMagnitude(transform.eulerAngles) - Vector3.SqrMagnitude(initialEuler)) > 5f)
         {
