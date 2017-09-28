@@ -46,8 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\PlayerFire.cs" />
-     <Compile Include="Assets\Scripts\TrajectoryPredictor.cs" />
+     <Compile Include="Assets\Scripts\ResetRotation.cs" />
+     <Compile Include="Assets\Scripts\RotateByDrag.cs" />
+     <Compile Include="Assets\Scripts\TrajectoryPredictor\PlayerFire.cs" />
+     <Compile Include="Assets\Scripts\TrajectoryPredictor\TrajectoryPredictor.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>G:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

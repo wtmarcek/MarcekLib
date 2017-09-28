@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ResetRotation : MonoBehaviour {
 
+    public float time = 1;
+
     Quaternion initialQuaternion;
     Vector3 initialEuler;
 
@@ -18,15 +20,15 @@ public class ResetRotation : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.R))
         {
-            StartCoroutine(LerpResetRotation(1));
+            StartCoroutine(LerpResetRotation(time));
         }
     }
 
-    public IEnumerator LerpResetRotation(float speed)
+    public IEnumerator LerpResetRotation(float t)
     {
         while (Mathf.Abs(Vector3.SqrMagnitude(transform.eulerAngles) - Vector3.SqrMagnitude(initialEuler)) > 5f)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, initialQuaternion, speed * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, initialQuaternion, 1/t * Time.deltaTime);
             yield return null;
         }
 

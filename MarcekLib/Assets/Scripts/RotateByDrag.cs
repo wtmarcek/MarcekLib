@@ -6,6 +6,9 @@ using System.Collections;
 public class RotateByDrag : MonoBehaviour
 {
     public float sensitivity = 1f;
+
+    [Range(0,30)]
+    public float smoothSensitivity = 10;
     private Vector3 mouseReference;
     private Vector3 mouseOffset;
     private Vector3 rotation = Vector3.zero;
@@ -44,7 +47,7 @@ public class RotateByDrag : MonoBehaviour
     IEnumerator RotationSmooth()
     {
         Vector3 myRotation = rotation;
-        myRotation = Vector3.ClampMagnitude(myRotation, 10);
+        myRotation = Vector3.ClampMagnitude(myRotation, smoothSensitivity);
 
         for (int i = 30; i >= 0; i--)
         {
