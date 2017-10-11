@@ -9,29 +9,39 @@ public class ResetRotation : MonoBehaviour {
     Quaternion initialQuaternion;
     Vector3 initialEuler;
 
-	// Use this for initialization
+    Coroutine myCoroutine = null;
+
 	void Start ()
     {
+        myCoroutine = StartCoroutine(LerpResetRotation(time));
         initialQuaternion = transform.rotation;
         initialEuler = transform.eulerAngles;
 	}
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.R))
-        {
-            StartCoroutine(LerpResetRotation(time));
-        }
+        if (Input.GetKeyUp(KeyCode.R))
+            myCoroutine = StartCoroutine(LerpResetRotation(time));
     }
 
-    public IEnumerator LerpResetRotation(float t)
+    void OnMouseDown()
     {
-        while (Mathf.Abs(Vector3.SqrMagnitude(transform.eulerAngles) - Vector3.SqrMagnitude(initialEuler)) > 5f)
+        if(myCoroutine != null)
+            StopCoroutine(myCoroutine);
+    }
+
+    public void ResetObjectRotation()
+    {
+        myCoroutine = StartCoroutine(LerpResetRotation(time));
+    }
+
+    IEnumerator LerpResetRotation(float t)
+    {
+        while (Mathf.Abs(Vector3.SqrMagnitude(transform.eulerAngles) - Vector3.SqrMagnitude(initialEuler)) > 10f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, initialQuaternion, 1/t * Time.deltaTime);
             yield return null;
         }
-
         transform.rotation = initialQuaternion;
     }
 }

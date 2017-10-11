@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(MeshRenderer))]
 
 public class RotateByDrag : MonoBehaviour
 {
@@ -9,16 +8,24 @@ public class RotateByDrag : MonoBehaviour
 
     [Range(0,30)]
     public float smoothSensitivity = 10;
+
+    //Mobile
+    private Vector2 touchReference;
+    private Vector2 touchOffset;    
+    //Mouse API
     private Vector3 mouseReference;
     private Vector3 mouseOffset;
+
     private Vector3 rotation = Vector3.zero;
     private bool isRotating;
 
+    private Touch touch = new Touch();
 
     void Update()
-    {
+    {        
         if (isRotating)
         {
+            touchOffset = (touch.position - touchReference);
             mouseOffset = (Input.mousePosition - mouseReference);
 
             rotation.x = (mouseOffset.y) * sensitivity;
@@ -26,6 +33,7 @@ public class RotateByDrag : MonoBehaviour
 
             gameObject.transform.Rotate(rotation, Space.World);
 
+            touchReference = touch.position;
             mouseReference = Input.mousePosition;
         }
     }
@@ -33,14 +41,12 @@ public class RotateByDrag : MonoBehaviour
     void OnMouseDown()
     {
         isRotating = true;
-
         mouseReference = Input.mousePosition;
     }
 
     void OnMouseUp()
     {               
         isRotating = false;
-
         StartCoroutine(RotationSmooth());
     }
 
